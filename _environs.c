@@ -1,9 +1,8 @@
 #include "shell.h"
 
 /**
- * print_env - prints the current environment (str only)
- * @shell: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
+ * print_env - prints the current environment variables stored in a linked list (str only)
+ * @shell: a pointer to a struct of type "shell_t"
  * Return: Always 0
  */
 
@@ -19,9 +18,11 @@ int print_env(shell_t *shell)
 }
 
 /**
- * create_env_list -> Creates a linked list for the environment
+ * create_env_list -> creates a linked list of environment variables
+ * from the global variable "environ" and
+ * assigns it to the "env" member of the "shell" struct.
  *
- * @shell: Pointer
+ * @shell: a pointer to a struct of type "shell_t"
  *
  * Return: Always 0
  */
@@ -35,16 +36,15 @@ int create_env_list(shell_t *shell)
 	{
 		add_node(&newEnv, environ[i], 0);
 	}
-
 	shell->env = newEnv;
-
 	return (0);
 }
 
 /**
- * get_environ -> Get the environment as an array of strings
+ * get_environ -> returns a pointer to the environment variables of a shell
+ * converting them from a linked list to an array of strings if necessary.
  *
- * @shell: Pointer
+ * @shell: A pointer to a struct representing the shell environment
  *
  * Return: Depend Condition
  */
@@ -58,4 +58,29 @@ char **get_environ(shell_t *shell)
 	}
 
 	return (shell->environ);
+}
+
+/**
+ * getenv - searches for a specific environment variable
+ * in a linked list and returns its value
+ * @shell: A pointer to a struct representing the shell environment
+ * @name: The name of the environment variable to search for
+ *
+ * Return: a pointer to the value of the environment variable with the
+ * given name or NULL
+ */
+
+char *get_env(shell_t *shell, const char *name)
+{
+	list_t *node = shell->env;
+	char *p;
+
+	while (node)
+	{
+		p = starts_with(node->str, name);
+		if (p && *p)
+			return (p);
+		node = node->next;
+	}
+	return (NULL);
 }
