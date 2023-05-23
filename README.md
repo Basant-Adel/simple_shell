@@ -76,7 +76,7 @@ Tasks
 0. Betty would be proud #mandatory
 	- Write a beautiful code that passes the Betty checks
 	- Repo: GitHub repository: simple_shell
-1. Simple shell 0.1 #mandatory
+1. Simple shell 0.1 #mandatory (some testcases ✔️)
 	- Write a UNIX command line interpreter.
 		* Usage: simple_shell
 	- Your Shell should:
@@ -101,26 +101,26 @@ Tasks
 	- execve will be the core part of your Shell,
 	  don’t forget to pass the environ to it…
 	- Repo: GitHub repository: simple_shell
-2. Simple shell 0.2 #mandatory
+2. Simple shell 0.2 #mandatory (✔️)
 	- Simple shell 0.1 +
 		* Handle command lines with arguments
 	- Repo: GitHub repository: simple_shell
-3. Simple shell 0.3 #mandatory
+3. Simple shell 0.3 #mandatory (some testcases ✔️)
 	- Simple shell 0.2 +
 		* Handle the PATH
 		* fork must not be called if the command doesn’t exist
 	- Repo: GitHub repository: simple_shell
-4. Simple shell 0.4 #mandatory
+4. Simple shell 0.4 #mandatory (✔️)
 	- Simple shell 0.3 +
 		* Implement the exit built-in, that exits the shell
 		* Usage: exit
 		* You don’t have to handle any argument to the built-in exit
 	- Repo: GitHub repository: simple_shell
-5. Simple shell 1.0 #mandatory
+5. Simple shell 1.0 #mandatory (some testcases ✔️)
 	- Simple shell 0.4 +
 		* Implement the env built-in, that prints current environment
 	- Repo: GitHub repository: simple_shell
-6. Simple shell 0.1.1 #advanced
+6. Simple shell 0.1.1 #advanced (some testcases ✔️)
 	- Simple shell 0.1 +
 		* Write your own getline function
 		* Use a buffer to read many chars at once
@@ -134,7 +134,7 @@ Tasks
 	- Simple shell 0.2 +
 		* You are not allowed to use strtok
 	- Repo: GitHub repository: simple_shell
-8. Simple shell 0.4.1 #advanced
+8. Simple shell 0.4.1 #advanced (✔️)
 	- Simple shell 0.4 +
 		* handle arguments for the built-in exit
 		* Usage: exit status, where it is an int used to exit shell
@@ -164,7 +164,7 @@ Tasks
 		  when you change directory
 	- man chdir, man getcwd
 	- Repo: GitHub repository: simple_shell
-11. ; #advanced
+11. ; #advanced (✔️)
 	- Simple shell 1.0 +
 		* Handle the commands separator ;
 	- Repo: GitHub repository: simple_shell
@@ -191,11 +191,11 @@ Tasks
 		* Handle the $? variable
 		* Handle the $$ variable
 	- Repo: GitHub repository: simple_shell
-15. Comments #advanced
+15. Comments #advanced (✔️)
 	- Simple shell 1.0 +
 		* Handle comments (#)
 	- Repo: GitHub repository: simple_shell
-16. File as input #advanced
+16. File as input #advanced (✔️)
 	- Simple shell 1.0 +
 		* Usage: simple_shell [filename]
 		* Your shell can take a file as a command line argument
