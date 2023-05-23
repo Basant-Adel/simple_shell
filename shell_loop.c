@@ -19,7 +19,7 @@ int shell_loop(shell_t *shell, char **argv)
 		reset_shell(shell);
 		if (interactive(shell))
 			_puts("$ ");
-		put_char(BUF_FLUSH);
+		write_char(BUF_FLUSH);
 		r = get_input(shell);
 		if (r != -1)
 		{

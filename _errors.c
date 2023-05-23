@@ -28,13 +28,13 @@ void printCanNotOpen(char *programName, char *fileName)
 
 void print_error(shell_t *shell, char *estr)
 {
-	put_string(shell->fname);
-	put_string(": ");
+	write_string_char_by_char(shell->fname);
+	write_string_char_by_char(": ");
 	print_base_10(shell->line_count, STDERR_FILENO);
-	put_string(": ");
-	put_string(shell->argv[0]);
-	put_string(": ");
-	put_string(estr);
+	write_string_char_by_char(": ");
+	write_string_char_by_char(shell->argv[0]);
+	write_string_char_by_char(": ");
+	write_string_char_by_char(estr);
 }
 
 /**
@@ -53,7 +53,7 @@ int print_base_10(int input, int fileDescriptor)
 	unsigned int _abs_, current;
 
 	if (fileDescriptor == STDERR_FILENO)
-		__putchar = put_char;
+		__putchar = write_char;
 	if (input < 0)
 	{
 		_abs_ = -input;

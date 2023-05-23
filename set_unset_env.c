@@ -13,7 +13,7 @@ int _setenv(shell_t *shell)
 {
 	if (shell->argc != 3)
 	{
-		put_string("Incorrect number of arguements\n");
+		write_string_char_by_char("Incorrect number of arguements\n");
 		return (1);
 	}
 	if (set_env(shell, shell->argv[1], shell->argv[2]))
@@ -33,7 +33,7 @@ int _unsetenv(shell_t *shell)
 
 	if (shell->argc == 1)
 	{
-		put_string("Too few arguements.\n");
+		write_string_char_by_char("Too few arguements.\n");
 		return (1);
 	}
 	for (i = 1; i <= shell->argc; i++)

@@ -41,7 +41,7 @@ int _cd(shell_t *shell)
 	if (chdir_ret == -1)
 	{
 		print_error(shell, "can't cd to ");
-		put_string(shell->argv[1]), put_char('\n');
+		write_string_char_by_char(shell->argv[1]), write_char('\n');
 	}
 	else
 	{

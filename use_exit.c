@@ -18,8 +18,8 @@ int use_exit(shell_t *shell)
 		{
 			shell->status = 2;
 			print_error(shell, "Illegal number: ");
-			put_string(shell->argv[1]);
-			put_char('\n');
+			write_string_char_by_char(shell->argv[1]);
+			write_char('\n');
 			return (1);
 		}
 		shell->err_num = _erratoi(shell->argv[1]);

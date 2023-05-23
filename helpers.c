@@ -64,95 +64,6 @@ int is_delim(char c, char *delim)
 }
 
 /**
- *_eputs - prints an input string
- * @str: the string to be printed
- *
- * Return: Nothing
- */
-
-void put_string(char *str)
-{
-	int i = 0;
-
-	if (!str)
-		return;
-	while (str[i] != '\0')
-	{
-		put_char(str[i]);
-		i++;
-	}
-}
-
-/**
- * _eputchar - writes the character c to stderr
- * @c: The character to print
- *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
- */
-
-int put_char(char c)
-{
-	static int i;
-	static char buf[WRITE_BUF_SIZE];
-
-	if (c == -1 || i >= WRITE_BUF_SIZE)
-	{
-		/* STDERR_FILENO => 2, which is a descriptor for standard error output. */
-		write(STDERR_FILENO, buf, i);
-		i = 0;
-	}
-	if (c != BUF_FLUSH)
-		buf[i++] = c;
-	return (1);
-}
-
-/**
- * _putfd - writes the character c to given fd
- * @c: The character to print
- * @fd: The filedescriptor to write to
- *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
- */
-
-int put_fd(char c, int fd)
-{
-	static int i;
-	static char buf[WRITE_BUF_SIZE];
-
-	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
-	{
-		write(fd, buf, i);
-		i = 0;
-	}
-	if (c != BUF_FLUSH)
-		buf[i++] = c;
-	return (1);
-}
-
-/**
- *_putsfd - prints an input string
- * @str: the string to be printed
- * @fd: the filedescriptor to write to
- *
- * Return: the number of chars put
- */
-
-int put_str_fd(char *str, int fd)
-{
-	int i = 0;
-
-	if (!str)
-		return (0);
-	while (*str)
-	{
-		i += put_fd(*str++, fd);
-	}
-	return (i);
-}
-
-/**
  * _erratoi - converts a string to an integer
  * @s: the string to be converted
  * Return: 0 if no numbers in string, converted number otherwise
@@ -428,10 +339,10 @@ int write_history(shell_t *shell)
 		return (-1);
 	for (node = shell->history; node; node = node->next)
 	{
-		put_str_fd(node->str, fd);
-		put_fd('\n', fd);
+		write_string_to_buffer(node->str, fd);
+		write_char_to_buffer('\n', fd);
 	}
-	put_fd(BUF_FLUSH, fd);
+	write_char_to_buffer(BUF_FLUSH, fd);
 	close(fd);
 	return (1);
 }
