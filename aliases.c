@@ -19,7 +19,7 @@ int unset_alias(shell_t *shell, char *str)
 	c = *p;
 	*p = 0;
 	ret = delete_node(&(shell->alias),
-		get_node_index(shell->alias, node_starts_with(shell->alias, str, -1)));
+		get_index_node(shell->alias, node_starts_with(shell->alias, str, -1)));
 	*p = c;
 	return (ret);
 }

@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * shell_loop -> Main Loop
+ * shell_loop -> the main loop of the shell program
  *
  * @shell: shell Struct Pointer
  * @argv: Argument Vector
  *
- * Return: 0 Success, -1 Failure
+ * Return: 0 => Success, 1 => Failure
  */
 
 int shell_loop(shell_t *shell, char **argv)
@@ -16,7 +16,7 @@ int shell_loop(shell_t *shell, char **argv)
 
 	while (r != -1 && builtin_ret != -2)
 	{
-		clear_shell(shell);
+		reset_shell(shell);
 		if (interactive(shell))
 			_puts("$ ");
 		put_char(BUF_FLUSH);
@@ -42,4 +42,51 @@ int shell_loop(shell_t *shell, char **argv)
 			exit(shell->status);
 		exit(shell->err_num);
 	} return (builtin_ret);
+}
+
+/**
+ * reset_shell - reset the values of the shell struct for the next command.
+ * @shell: struct address
+ * Return: void
+ */
+
+void reset_shell(shell_t *shell)
+{
+	shell->arg = NULL;
+	shell->argv = NULL;
+	shell->path = NULL;
+	shell->argc = 0;
+}
+
+/**
+ * init_shell - initializes a `shell_t` struct
+ * @shell: struct address
+ * @argv: argument vector
+ */
+
+void init_shell(shell_t *shell, char **argv)
+{
+	int i = 0;
+
+	shell->fname = argv[0];
+	if (shell->arg)
+	{
+		shell->argv = str_to_words(shell->arg, " \t");
+		if (!shell->argv)
+		{
+
+			shell->argv = malloc(sizeof(char *) * 2);
+			if (shell->argv)
+			{
+				shell->argv[0] = _strdup(shell->arg);
+				shell->argv[1] = NULL;
+			}
+		}
+		for (i = 0; shell->argv && shell->argv[i]; i++)
+			;
+		shell->argc = i;
+
+		replace_alias(shell);
+		replace_vars(shell);
+	}
 }

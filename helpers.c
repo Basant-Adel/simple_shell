@@ -247,65 +247,6 @@ int _erratoi(char *s)
 }
 
 /**
- * print_error - prints an error message
- * @shell: the parameter & return shell struct
- * @estr: string containing specified error type
- * Return: 0 if no numbers in string, converted number otherwise
- *        -1 on error
- */
-
-void print_error(shell_t *shell, char *estr)
-{
-	put_string(shell->fname);
-	put_string(": ");
-	print_10(shell->line_count, STDERR_FILENO);
-	put_string(": ");
-	put_string(shell->argv[0]);
-	put_string(": ");
-	put_string(estr);
-}
-
-/**
- * print_d - function prints a decimal (integer) number (base 10)
- * @input: the input
- * @fd: the filedescriptor to write to
- *
- * Return: number of characters printed
- */
-
-int print_10(int input, int fd)
-{
-	int (*__putchar)(char) = _putchar;
-	int i, count = 0;
-	unsigned int _abs_, current;
-
-	if (fd == STDERR_FILENO)
-		__putchar = put_char;
-	if (input < 0)
-	{
-		_abs_ = -input;
-		__putchar('-');
-		count++;
-	}
-	else
-		_abs_ = input;
-	current = _abs_;
-	for (i = 1000000000; i > 1; i /= 10)
-	{
-		if (_abs_ / i)
-		{
-			__putchar('0' + current / i);
-			count++;
-		}
-		current %= i;
-	}
-	__putchar('0' + current);
-	count++;
-
-	return (count);
-}
-
-/**
  * convert_number - converter function, a clone of itoa
  * @num: number
  * @base: base
@@ -530,20 +471,6 @@ void siginal(__attribute__((unused))int sig_num)
 	_putchar(BUF_FLUSH);
 }
 
-
-/**
- * clear_shell - initializes shell_t struct
- * @shell: struct address
- */
-
-void clear_shell(shell_t *shell)
-{
-	shell->arg = NULL;
-	shell->argv = NULL;
-	shell->path = NULL;
-	shell->argc = 0;
-}
-
 /**
  * write_history - creates a file, or appends to an existing file
  * @shell: the parameter struct
@@ -617,47 +544,6 @@ int renumber_history(shell_t *shell)
 }
 
 /**
- * delete_node_at_index - deletes node at given index
- * @head: address of pointer to first node
- * @index: index of node to delete
- *
- * Return: 1 on success, 0 on failure
- */
-
-int delete_node(list_t **head, unsigned int index)
-{
-	list_t *node, *prev_node;
-	unsigned int i = 0;
-
-	if (!head || !*head)
-		return (0);
-
-	if (!index)
-	{
-		node = *head;
-		*head = (*head)->next;
-		free(node->str);
-		free(node);
-		return (1);
-	}
-	node = *head;
-	while (node)
-	{
-		if (i == index)
-		{
-			prev_node->next = node->next;
-			free(node->str);
-			free(node);
-			return (1);
-		}
-		i++;
-		prev_node = node;
-		node = node->next;
-	}
-	return (0);
-}
-
-/**
  * list_len - determines length of linked list
  * @h: pointer to first node
  *
@@ -713,50 +599,6 @@ char **list_to_strings(list_t *head)
 	return (strs);
 }
 
-/**
- * node_starts_with - returns node whose string starts with prefix
- * @node: pointer to list head
- * @prefix: string to match
- * @c: the next character after prefix to match
- *
- * Return: match node or null
- */
-
-list_t *node_starts_with(list_t *node, char *prefix, char c)
-{
-	char *p = NULL;
-
-	while (node)
-	{
-		p = starts_with(node->str, prefix);
-		if (p && ((c == -1) || (*p == c)))
-			return (node);
-		node = node->next;
-	}
-	return (NULL);
-}
-
-/**
- * get_node_index - gets the index of a node
- * @head: pointer to list head
- * @node: pointer to the node
- *
- * Return: index of node or -1
- */
-
-ssize_t get_node_index(list_t *head, list_t *node)
-{
-	size_t i = 0;
-
-	while (head)
-	{
-		if (head == node)
-			return (i);
-		head = head->next;
-		i++;
-	}
-	return (-1);
-}
 
 /**
  * dup_chars - duplicates characters
