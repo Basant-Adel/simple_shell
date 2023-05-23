@@ -502,9 +502,9 @@ int get_line(shell_t *shell, char **ptr, size_t *length)
 		return (p ? free(p), -1 : -1);
 
 	if (s)
-		_strncat(new_p, buf + i, k - i);
+		str_cat_specific_char(new_p, buf + i, k - i);
 	else
-		_strncpy(new_p, buf + i, k - i + 1);
+		str_cpy_specific_char(new_p, buf + i, k - i + 1);
 
 	s += k - i;
 	i = k;
