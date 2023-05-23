@@ -1,16 +1,20 @@
 #ifndef SHELL_H
 #define SHELL_H
 
+/* The C Standard Library */
+
 #include <stdio.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <limits.h>
-#include <fcntl.h>
-#include <errno.h>
+#include <sys/types.h>
+
+/* The C Macro Definition Documentation */
 
 #define READ_BUF_SIZE 1024
 #define WRITE_BUF_SIZE 1024
@@ -25,15 +29,18 @@
 #define HIST_FILE	".simple_shell_history"
 #define HIST_MAX	4096
 #define shell_INIT {NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, 0, 0}
+
 #define NOT_FOUND 127
 #define PERMISSION_DENIED 126
 extern char **environ;
 
+/* Typedefs  */
+
 /**
  * struct liststr - singly linked list
- * @num: the number field
- * @str: a string
- * @next: points to the next node
+ *@num: the number field
+ *@str: a string
+ *@next: points to the next node
  */
 
 typedef struct liststr
@@ -45,7 +52,8 @@ typedef struct liststr
 
 /**
  *struct passshell - contains pseudo-arguements to pass into a function,
- *		allowing uniform prototype for function pointer struct
+ *allowing uniform prototype for function pointer struct
+ *
  *@arg: a string generated from getline containing arguements
  *@argv: an array of strings generated from arg
  *@path: a string path for the current command
@@ -159,7 +167,7 @@ int write_history(shell_t *shell);
 int read_history(shell_t *shell);
 int build_history_list(shell_t *shell, char *buf, int linecount);
 int renumber_history(shell_t *shell);
-/* list_t *add_node(list_t **, const char *, int);*/ 
+/* list_t *add_node(list_t **, const char *, int);*/
 list_t *add_node(list_t **, const char *, int);
 int delete_node(list_t **, unsigned int);
 void free_list(list_t **);
