@@ -1,7 +1,8 @@
 #include "shell.h"
 
 /**
- * print_env - prints the current environment variables stored in a linked list (str only)
+ * print_env - prints the current environment variables stored
+ * in a linked list (str only)
  * @shell: a pointer to a struct of type "shell_t"
  * Return: Always 0
  */
@@ -30,7 +31,7 @@ int print_env(shell_t *shell)
 int create_env_list(shell_t *shell)
 {
 	list_t *newEnv = NULL;
-  size_t i;
+	size_t i;
 
 	for (i = 0; environ[i]; i++)
 	{
@@ -61,7 +62,7 @@ char **get_environ(shell_t *shell)
 }
 
 /**
- * getenv - searches for a specific environment variable
+ * get_env - searches for a specific environment variable
  * in a linked list and returns its value
  * @shell: A pointer to a struct representing the shell environment
  * @name: The name of the environment variable to search for

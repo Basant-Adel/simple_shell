@@ -15,7 +15,8 @@ int _putchar(char c)
 
 	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
 	{
-		write(STDOUT_FILENO, buf, i); /* STDOUT_FILENO => 1, which is a descriptor for standard output. */
+		write(STDOUT_FILENO, buf, i);
+	/* STDOUT_FILENO => 1, which is a descriptor for standard output. */
 		i = 0;
 	}
 	if (c != BUF_FLUSH)
