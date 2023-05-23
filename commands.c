@@ -1,15 +1,15 @@
 #include "shell.h"
 
 /**
- * is_cmd -> checks if a path is a command
+ * is_command -> checks if a path is a command
  *
- * @shell: Parameter
- * @path: Parameter
+ * @shell: A pointer to a shell_t struct
+ * @path: A string representing the path to a file or directory
  *
- * Return: Depend Condition
+ * Return: 0 or 1
  */
 
-int is_cmd(shell_t *shell, char *path)
+int is_command(shell_t *shell, char *path)
 {
 	struct stat st;
 
@@ -25,12 +25,13 @@ int is_cmd(shell_t *shell, char *path)
 }
 
 /**
- * find_cmd -> Finds a command in the path
+ * find_command -> Finds a command in the path
  *
- * @shell: Parameter
+ * @shell:  a pointer to a struct representing the shell environment
+ * Return: void
  */
 
-void find_cmd(shell_t *shell)
+void find_command(shell_t *shell)
 {
 	char *path = NULL;
 	int i, k;
@@ -51,13 +52,13 @@ void find_cmd(shell_t *shell)
 	if (path)
 	{
 		shell->path = path;
-		run_cmd(shell);
+		run_command(shell);
 	}
 	else
 	{
 		if ((interactive(shell) || get_env(shell, "PATH=")
-			|| shell->argv[0][0] == '/') && is_cmd(shell, shell->argv[0]))
-			run_cmd(shell);
+			|| shell->argv[0][0] == '/') && is_command(shell, shell->argv[0]))
+			run_command(shell);
 		else if (*(shell->arg) != '\n')
 		{
 			shell->status = 127;
@@ -67,12 +68,16 @@ void find_cmd(shell_t *shell)
 }
 
 /**
- * run_cmd -> Runs a command
- *
- * @shell: Parameter
+ * run_command -> runs a command by forking a child process and
+ * executing the command using execve, and
+ * then waits for the child process to finish and
+ * updates the shell status accordingly.
+ * @shell: a pointer to a struct containing info about the shell
+ * and the command to be executed.
+ * Return: void
  */
 
-void run_cmd(shell_t *shell)
+void run_command(shell_t *shell)
 {
 	pid_t child_pid;
 

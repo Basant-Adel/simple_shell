@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * printCanNotOpen -> Prints an error message to standard error
+ * printCanNotOpen -> Prints an error indicating that a file can't be opened
  *  when a file cannot be opened.
  *
- * @programName: char
- * @fileName: char
+ * @programName: *char
+ * @fileName: *char
  *
  * Return: void
  */

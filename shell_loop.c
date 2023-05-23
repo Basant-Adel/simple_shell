@@ -26,7 +26,7 @@ int shell_loop(shell_t *shell, char **argv)
 			init_shell(shell, argv);
 			builtin_ret = get_built_in_command(shell);
 			if (builtin_ret == -1)
-				find_cmd(shell);
+				find_command(shell);
 		}
 		else if (interactive(shell))
 			_putchar('\n');

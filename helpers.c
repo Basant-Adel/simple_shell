@@ -574,7 +574,7 @@ char *find_path(shell_t *shell, char *pathstr, char *cmd)
 		return (NULL);
 	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
 	{
-		if (is_cmd(shell, cmd))
+		if (is_command(shell, cmd))
 			return (cmd);
 	}
 	while (1)
@@ -589,7 +589,7 @@ char *find_path(shell_t *shell, char *pathstr, char *cmd)
 				_strcat(path, "/");
 				_strcat(path, cmd);
 			}
-			if (is_cmd(shell, path))
+			if (is_command(shell, path))
 				return (path);
 			if (!pathstr[i])
 				break;

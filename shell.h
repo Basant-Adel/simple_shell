@@ -112,9 +112,9 @@ typedef struct builtin
 
 int shell_loop(shell_t *, char **);
 int get_built_in_command(shell_t *);
-void find_cmd(shell_t *);
-void run_cmd(shell_t *shell);
-int is_cmd(shell_t *, char *);
+void find_command(shell_t *);
+void run_command(shell_t *shell);
+int is_command(shell_t *, char *);
 char *dup_chars(char *, int, int);
 char *find_path(shell_t *, char *, char *);
 void put_string(char *);

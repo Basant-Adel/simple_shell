@@ -1,11 +1,12 @@
 #include "shell.h"
 
 /**
- * _cd -> Changes the current working directory
+ * _cd -> changes the current working directory of the shell
  *
- * @shell: Parameter
+ * @shell: A pointer to a struct representing
+ * the shell environment and its variables
  *
- * Return: Depend Condition
+ * Return: 0 or 1
  */
 
 int _cd(shell_t *shell)
