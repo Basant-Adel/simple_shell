@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 
 	if (argc == 2) /* O_RDONLY => Open the file for reading only. */
 	{
-		fileDescriptor = open(argv[1], O_RDONLY);
+		fileDescriptor = open(argv[1], O_CREAT, S_IRUSR | S_IWUSR);
 
 		if (fileDescriptor == -1)
 		{
