@@ -1,12 +1,13 @@
 #include "shell.h"
 
 /**
- * _setenv - Initialize a new environment variable,
- *             or modify an existing one
- * @shell: The shell_t struct, which contains information about
- * the current shell session, such as the current working directory,
- * environment variables, and the command history.
- *  Return: Success return 0, Otherwise, it returns 1
+ * _setenv - A function to Initialize a new environment variable
+ *or modify an existing one
+ *
+ *@shell: The shell_t struct, which contains information about
+ *the current shell session, such as the current working directory,
+ *environment variables, and the command history.
+ *Return: Successful -> (0), Otherwise -> (1)
  */
 
 int _setenv(shell_t *shell)
