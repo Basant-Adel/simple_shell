@@ -25,17 +25,20 @@ int _putchar(char c)
 }
 
 /**
- * _puts -> Prints a string
+ *_puts - prints an input string
+ *@str: the string to be printed
  *
- * @str: Input
+ * Return: Nothing
  */
-
 void _puts(char *str)
 {
-	int i;
+	int i = 0;
 
-	for (i = 0; str[i] != '\0'; i++)
+	if (!str)
+		return;
+	while (str[i] != '\0')
 	{
 		_putchar(str[i]);
+		i++;
 	}
 }
