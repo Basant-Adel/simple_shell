@@ -1,69 +1,72 @@
 #include "shell.h"
 
 /**
- * unset_alias - sets alias to string
- * @shell: parameter struct
- * @str: the string alias
- *
- * Return: Always 0 on success, 1 on error
+ * unsetalias - A function to unsets alias to string
+ *@shell: It's a parameter (struct)
+ *@str: String
+ *Return: Always (0)-> Successful, (1)-> ERROR
  */
 
-int unset_alias(shell_t *shell, char *str)
+int unsetalias(shell_t *shell, char *str)
 {
-	char *p, c;
-	int ret;
+	char *b, v;
+	int get;
 
-	p = _strchr(str, '=');
-	if (!p)
+	b = _strchr(str, '=');
+	if (!b)
 		return (1);
-	c = *p;
-	*p = 0;
-	ret = delete_node(&(shell->alias),
+	v = *b;
+	*b = 0;
+	get = delete_node(&(shell->alias),
 		get_index_node(shell->alias, node_starts_with(shell->alias, str, -1)));
-	*p = c;
-	return (ret);
+	*b = v;
+	return (get);
 }
 
 /**
- * set_alias - sets alias to string
- * @shell: parameter struct
- * @str: the string alias
- *
- * Return: Always 0 on success, 1 on error
+ * setalias - A function to sets alias to string
+ *@shell: It's a parameter (struct)
+ *@str: String
+ *Return: Always (0)-> Successful, (1)-> ERROR
  */
 
-int set_alias(shell_t *shell, char *str)
+int setalias(shell_t *shell, char *str)
 {
-	char *p;
+	char *b;
 
-	p = _strchr(str, '=');
-	if (!p)
+	b = _strchr(str, '=');
+
+	if (!b)
+	{
 		return (1);
-	if (!*++p)
-		return (unset_alias(shell, str));
+	}
 
-	unset_alias(shell, str);
+	if (!*++b)
+	{
+		return (unsetalias(shell, str));
+	}
+
+	unsetalias(shell, str);
 	return (add_node(&(shell->alias), str, 0) == NULL);
 }
 
 /**
- * print_alias - prints an alias string
- * @node: the alias node
- *
- * Return: Always 0 on success, 1 on error
+ * printalias - A function to print an alias string
+ *@node: It's an alias node
+ *Return: Always (0)-> Successful, (1)-> ERROR
  */
 
-int print_alias(list_t *node)
+int printalias(list_t *node)
 {
-	char *p = NULL, *a = NULL;
+	char *b = NULL, *a = NULL;
 
 	if (node)
 	{
-		p = _strchr(node->str, '=');
-		for (a = node->str; a <= p; a++)
+		b = _strchr(node->str, '=');
+		for (a = node->str; a <= b; a++)
 			_putchar(*a);
 		_putchar('\'');
-		_puts(p + 1);
+		_puts(b + 1);
 		_puts("'\n");
 		return (0);
 	}
@@ -71,16 +74,16 @@ int print_alias(list_t *node)
 }
 
 /**
- * _alias - mimics the alias builtin (man alias)
- * @shell: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
- *  Return: Always 0
+ * _alias - A function to Implement the alias builtin command
+ *@shell: Structure containing potential arguments
+ *Used to maintain constant function prototype
+ *Return: Always (0)-> Successful
  */
 
 int _alias(shell_t *shell)
 {
-	int i = 0;
-	char *p = NULL;
+	int y = 0;
+	char *b = NULL;
 	list_t *node = NULL;
 
 	if (shell->argc == 1)
@@ -88,49 +91,61 @@ int _alias(shell_t *shell)
 		node = shell->alias;
 		while (node)
 		{
-			print_alias(node);
+			printalias(node);
 			node = node->next;
 		}
 		return (0);
 	}
-	for (i = 1; shell->argv[i]; i++)
+	for (y = 1; shell->argv[y]; y++)
 	{
-		p = _strchr(shell->argv[i], '=');
-		if (p)
-			set_alias(shell, shell->argv[i]);
-		else
-			print_alias(node_starts_with(shell->alias, shell->argv[i], '='));
-	}
+		b = _strchr(shell->argv[y], '=');
 
+		if (b)
+		{
+			setalias(shell, shell->argv[y]);
+		}
+		else
+		{
+			printalias(node_starts_with(shell->alias, shell->argv[y], '='));
+		}
+	}
 	return (0);
 }
 
 /**
- * replace_alias - replaces an aliases in the tokenized string
- * @shell: the parameter struct
- *
- * Return: 1 if replaced, 0 otherwise
+ * replacealias - A function to replace an alias in tokenized string
+ *@shell: It's a parameter (struct)
+ *Return: Give (1)-> for Replaced, (0) for Otherwise
  */
 
-int replace_alias(shell_t *shell)
+int replacealias(shell_t *shell)
 {
-	int i;
+	int y;
 	list_t *node;
-	char *p;
+	char *b;
 
-	for (i = 0; i < 10; i++)
+	for (y = 0; y < 10; y++)
 	{
 		node = node_starts_with(shell->alias, shell->argv[0], '=');
+
 		if (!node)
+		{
 			return (0);
+		}
 		free(shell->argv[0]);
-		p = _strchr(node->str, '=');
-		if (!p)
+		b = _strchr(node->str, '=');
+
+		if (!b)
+		{
 			return (0);
-		p = _strdup(p + 1);
-		if (!p)
+		}
+		b = _strdup(b + 1);
+
+		if (!b)
+		{
 			return (0);
-		shell->argv[0] = p;
+		}
+		shell->argv[0] = b;
 	}
 	return (1);
 }

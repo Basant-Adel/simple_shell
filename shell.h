@@ -110,6 +110,8 @@ typedef struct builtin
 	int (*func)(shell_t *);
 } built_in_table;
 
+/* Prototypes  */
+
 int shell_loop(shell_t *, char **);
 int get_built_in_command(shell_t *);
 void find_command(shell_t *);
@@ -178,9 +180,12 @@ list_t *node_starts_with(list_t *, char *, char);
 ssize_t get_index_node(list_t *, list_t *);
 int is_chain(shell_t *, char *, size_t *);
 void check_chain(shell_t *, char *, size_t *, size_t, size_t);
-int replace_alias(shell_t *);
+int replacealias(shell_t *);
 int replace_vars(shell_t *);
 int replace_string(char **, char *);
 void printCanNotOpen(char *programName, char *fileName);
+int printalias(list_t *node);
+int setalias(shell_t *shell, char *str);
+int unsetalias(shell_t *shell, char *str);
 
 #endif
