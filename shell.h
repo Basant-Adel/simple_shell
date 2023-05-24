@@ -151,8 +151,7 @@ int _cd(shell_t *shell);
 int _help(shell_t *);
 int print_history(shell_t *);
 int _alias(shell_t *);
-ssize_t get_input(shell_t *);
-int get_line(shell_t *, char **, size_t *);
+int get_line(shell_t *shell, char **ptr, size_t *length);
 void siginal(int);
 void reset_shell(shell_t *);
 void init_shell(shell_t *, char **);
@@ -170,7 +169,6 @@ int write_history(shell_t *shell);
 int read_history(shell_t *shell);
 int build_history_list(shell_t *shell, char *buf, int linecount);
 int renumber_history(shell_t *shell);
-/* list_t *add_node(list_t **, const char *, int);*/
 list_t *add_node(list_t **, const char *, int);
 int delete_node(list_t **, unsigned int);
 void free_list(list_t **);
@@ -187,5 +185,12 @@ void printCanNotOpen(char *programName, char *fileName);
 int print_node_alias(list_t *node);
 int add_update_node_alias(shell_t *shell, char *str);
 int delete_node_alias(shell_t *shell, char *str);
+int _setenv(shell_t *shell);
+int _unsetenv(shell_t *shell);
+int set_env(shell_t *shell, char *var, char *value);
+int unset_env(shell_t *shell, char *var);
+ssize_t input_buffer(shell_t *shell, char **buf, size_t *len);
+ssize_t get_input(shell_t *shell);
+ssize_t read_buf(shell_t *shell, char *buf, size_t *i);
 
 #endif
