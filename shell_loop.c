@@ -86,7 +86,7 @@ void init_shell(shell_t *shell, char **argv)
 			;
 		shell->argc = i;
 
-		replace_alias(shell);
+		replacealias(shell);
 		replace_vars(shell);
 	}
 }
