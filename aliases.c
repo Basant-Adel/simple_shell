@@ -57,15 +57,6 @@ int add_update_node_alias(shell_t *shell, char *str)
  *Return: Always (0)-> Successful, (1)-> ERROR
  */
 
-/**
- * This function prints an alias command in the format "alias 'alias_name=alias_value'".
- * 
- * @param node a pointer to a node in a linked list of strings. Each string in the list is expected to
- * be in the format of an alias definition, where the alias name and its value are separated by an
- * equal sign (=).
- * 
- * @return If the input `node` is not `NULL`, the function returns `0`. Otherwise, it returns `1`.
- */
 int print_node_alias(list_t *node)
 {
 	char *b = NULL, *a = NULL;
