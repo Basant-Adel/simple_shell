@@ -1,15 +1,15 @@
 #include "shell.h"
 
 /**
- * shell_loop -> the main loop of the shell program
+ * main_shell_loop -> the main loop of the shell program
  *
- * @shell: shell Struct Pointer
+ * @shell: a pointer to a struct shell
  * @argv: Argument Vector
  *
  * Return: 0 => Success, 1 => Failure
  */
 
-int shell_loop(shell_t *shell, char **argv)
+int main_shell_loop(shell_t *shell, char **argv)
 {
 	ssize_t r = 0;
 	int builtin_ret = 0;
@@ -86,7 +86,7 @@ void init_shell(shell_t *shell, char **argv)
 			;
 		shell->argc = i;
 
-		replacealias(shell);
-		replace_vars(shell);
+		replace_node_alias(shell);
+		replace_shell_vars(shell);
 	}
 }

@@ -1,13 +1,14 @@
 #include "shell.h"
 
 /**
- * unsetalias - A function to unsets alias to string
- *@shell: It's a parameter (struct)
- *@str: String
+ * delete_node_alias - unsets an alias in a shell by deleting
+ * the corresponding node in the alias linked list
+ *@shell: A pointer to a struct
+ *@str: A string containing the alias to be unset
  *Return: Always (0)-> Successful, (1)-> ERROR
  */
 
-int unsetalias(shell_t *shell, char *str)
+int delete_node_alias(shell_t *shell, char *str)
 {
 	char *b, v;
 	int get;
@@ -24,13 +25,13 @@ int unsetalias(shell_t *shell, char *str)
 }
 
 /**
- * setalias - A function to sets alias to string
- *@shell: It's a parameter (struct)
- *@str: String
+ * add_update_node_alias - sets an alias in a shell by adding or updating it
+ *@shell: struct pointer
+ *@str: String containing the alias to be set
  *Return: Always (0)-> Successful, (1)-> ERROR
  */
 
-int setalias(shell_t *shell, char *str)
+int add_update_node_alias(shell_t *shell, char *str)
 {
 	char *b;
 
@@ -43,20 +44,29 @@ int setalias(shell_t *shell, char *str)
 
 	if (!*++b)
 	{
-		return (unsetalias(shell, str));
+		return (delete_node_alias(shell, str));
 	}
 
-	unsetalias(shell, str);
+	delete_node_alias(shell, str);
 	return (add_node(&(shell->alias), str, 0) == NULL);
 }
 
 /**
- * printalias - A function to print an alias string
- *@node: It's an alias node
+ * print_node_alias - A function prints an alias command
+ *@node: a pointer to a node in a linked list of strings
  *Return: Always (0)-> Successful, (1)-> ERROR
  */
 
-int printalias(list_t *node)
+/**
+ * This function prints an alias command in the format "alias 'alias_name=alias_value'".
+ * 
+ * @param node a pointer to a node in a linked list of strings. Each string in the list is expected to
+ * be in the format of an alias definition, where the alias name and its value are separated by an
+ * equal sign (=).
+ * 
+ * @return If the input `node` is not `NULL`, the function returns `0`. Otherwise, it returns `1`.
+ */
+int print_node_alias(list_t *node)
 {
 	char *b = NULL, *a = NULL;
 
@@ -91,7 +101,7 @@ int _alias(shell_t *shell)
 		node = shell->alias;
 		while (node)
 		{
-			printalias(node);
+			print_node_alias(node);
 			node = node->next;
 		}
 		return (0);
@@ -102,23 +112,25 @@ int _alias(shell_t *shell)
 
 		if (b)
 		{
-			setalias(shell, shell->argv[y]);
+			add_update_node_alias(shell, shell->argv[y]);
 		}
 		else
 		{
-			printalias(node_starts_with(shell->alias, shell->argv[y], '='));
+			print_node_alias(node_starts_with(shell->alias, shell->argv[y], '='));
 		}
 	}
 	return (0);
 }
 
 /**
- * replacealias - A function to replace an alias in tokenized string
- *@shell: It's a parameter (struct)
- *Return: Give (1)-> for Replaced, (0) for Otherwise
+ * replace_node_alias - A function replaces an alias in the shell's
+ * alias list with its corresponding value in the
+ * command line arguments.
+ *@shell: a pointer to a struct representing the shell environment
+ *Return: either 0 or 1
  */
 
-int replacealias(shell_t *shell)
+int replace_node_alias(shell_t *shell)
 {
 	int y;
 	list_t *node;

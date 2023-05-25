@@ -34,28 +34,28 @@ char *get_history(shell_t *shell)
 int read_history(shell_t *shell)
 {
 	int i, last = 0, linecount = 0;
-	ssize_t fd, rdlen, fsize = 0;
+	ssize_t fileDescriptor, rdlen, fsize = 0;
 	struct stat st;
 	char *buf = NULL, *filename = get_history(shell);
 
 	if (!filename)
 		return (0);
-	fd = open(filename, O_RDONLY);
+	fileDescriptor = open(filename, O_RDONLY);
 	free(filename);
-	if (fd == -1)
+	if (fileDescriptor == -1)
 		return (0);
-	if (!fstat(fd, &st))
+	if (!fstat(fileDescriptor, &st))
 		fsize = st.st_size;
 	if (fsize < 2)
 		return (0);
 	buf = malloc(sizeof(char) * (fsize + 1));
 	if (!buf)
 		return (0);
-	rdlen = read(fd, buf, fsize);
+	rdlen = read(fileDescriptor, buf, fsize);
 	buf[fsize] = 0;
 	if (rdlen <= 0)
 		return (free(buf), 0);
-	close(fd);
+	close(fileDescriptor);
 	for (i = 0; i < fsize; i++)
 		if (buf[i] == '\n')
 		{

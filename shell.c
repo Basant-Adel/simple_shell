@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 	}
 	create_env_list(shell);
 	read_history(shell);
-	shell_loop(shell, argv);
+	main_shell_loop(shell, argv);
 	free_shell(shell, 1);
 	return (EXIT_SUCCESS);
 }

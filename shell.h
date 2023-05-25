@@ -71,7 +71,7 @@ typedef struct liststr
  *@status: the return status of the last exec'd command
  *@cmd_buf: address of pointer to cmd_buf, on if chaining
  *@cmd_buf_type: CMD_type ||, &&, ;
- *@fileDescriptor: the fd from which to read line input
+ *@fileDescriptor: the fileDescriptor from which to read line input
  *@histcount: the history line number count
  */
 
@@ -112,7 +112,7 @@ typedef struct builtin
 
 /* Prototypes  */
 
-int shell_loop(shell_t *, char **);
+int main_shell_loop(shell_t *, char **);
 int get_built_in_command(shell_t *);
 void find_command(shell_t *);
 void run_command(shell_t *shell);
@@ -121,8 +121,8 @@ char *dup_chars(char *, int, int);
 char *find_path(shell_t *, char *, char *);
 void write_string_char_by_char(char *);
 int write_char(char);
-int write_char_to_buffer(char c, int fd);
-int write_string_to_buffer(char *str, int fd);
+int write_char_to_buffer(char c, int fileDescriptor);
+int write_string_to_buffer(char *str, int fileDescriptor);
 int _strlen(char *);
 int _strcmp(char *, char *);
 char *starts_with(const char *, const char *);
@@ -180,12 +180,12 @@ list_t *node_starts_with(list_t *, char *, char);
 ssize_t get_index_node(list_t *, list_t *);
 int is_chain(shell_t *, char *, size_t *);
 void check_chain(shell_t *, char *, size_t *, size_t, size_t);
-int replacealias(shell_t *);
-int replace_vars(shell_t *);
-int replace_string(char **, char *);
+int replace_node_alias(shell_t *);
+int replace_shell_vars(shell_t *);
+int replace_string_shell_vars(char **, char *);
 void printCanNotOpen(char *programName, char *fileName);
-int printalias(list_t *node);
-int setalias(shell_t *shell, char *str);
-int unsetalias(shell_t *shell, char *str);
+int print_node_alias(list_t *node);
+int add_update_node_alias(shell_t *shell, char *str);
+int delete_node_alias(shell_t *shell, char *str);
 
 #endif

@@ -9,24 +9,24 @@
 
 int write_history(shell_t *shell)
 {
-	ssize_t fd;
+	ssize_t fileDescriptor;
 	char *filename = get_history(shell);
 	list_t *node = NULL;
 
 	if (!filename)
 		return (-1);
 
-	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
+	fileDescriptor = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	free(filename);
-	if (fd == -1)
+	if (fileDescriptor == -1)
 		return (-1);
 	for (node = shell->history; node; node = node->next)
 	{
-		write_string_to_buffer(node->str, fd);
-		write_char_to_buffer('\n', fd);
+		write_string_to_buffer(node->str, fileDescriptor);
+		write_char_to_buffer('\n', fileDescriptor);
 	}
-	write_char_to_buffer(BUF_FLUSH, fd);
-	close(fd);
+	write_char_to_buffer(BUF_FLUSH, fileDescriptor);
+	close(fileDescriptor);
 	return (1);
 }
 

@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * replace_vars - replaces vars in the tokenized string
- * @shell: the parameter struct
+ * replace_shell_vars - replaces vars in the tokenized string
+ * @shell: a pointer to a struct
  *
- * Return: 1 if replaced, 0 otherwise
+ * Return: 0
  */
 
-int replace_vars(shell_t *shell)
+int replace_shell_vars(shell_t *shell)
 {
 	int i = 0;
 	list_t *node;
@@ -19,39 +19,39 @@ int replace_vars(shell_t *shell)
 
 		if (!_strcmp(shell->argv[i], "$?"))
 		{
-			replace_string(&(shell->argv[i]),
+			replace_string_shell_vars(&(shell->argv[i]),
 				_strdup(convert_num(shell->status, 10, 0)));
 			continue;
 		}
 		if (!_strcmp(shell->argv[i], "$$"))
 		{
-			replace_string(&(shell->argv[i]),
+			replace_string_shell_vars(&(shell->argv[i]),
 				_strdup(convert_num(getpid(), 10, 0)));
 			continue;
 		}
 		node = node_starts_with(shell->env, &shell->argv[i][1], '=');
 		if (node)
 		{
-			replace_string(&(shell->argv[i]),
+			replace_string_shell_vars(&(shell->argv[i]),
 				_strdup(_strchr(node->str, '=') + 1));
 			continue;
 		}
-		replace_string(&shell->argv[i], _strdup(""));
+		replace_string_shell_vars(&shell->argv[i], _strdup(""));
 
 	}
 	return (0);
 }
 
 /**
- * replace_string -> Replace a string with another
+ * replace_string_shell_vars -> Replace a string with a new one
  *
- * @old: Pointer
- * @new: Pointer
+ * @old: old Pointer
+ * @new: new Pointer
  *
- * Return: Depend Condition
+ * Return: 1
  */
 
-int replace_string(char **old, char *new)
+int replace_string_shell_vars(char **old, char *new)
 {
 	free(*old);
 	*old = new;
